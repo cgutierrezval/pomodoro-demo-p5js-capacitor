@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro App</title>
+    <!-- p5.js y p5.sound ANTES de los módulos -->
+    <script src="/src/p5.js"></script>
+    <script src="/src/p5.sound.min.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <button id="startBtn">Start</button>
+      <div id="p5-container"></div>
+      <div id="timer"></div>
+      <div id="task-title"></div>
+    </div>
+    <div id="task-input-footer">
+      <input type="text" id="taskInput" placeholder="Enter task title..." maxlength="50">
+      <button id="enterBtn" type="button">↵</button>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
