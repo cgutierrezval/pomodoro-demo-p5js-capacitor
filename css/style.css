@@ -1,0 +1,114 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: #121212;
+    color: #fff;
+    font-family: 'Orbitron', monospace;
+    position: relative;
+}
+
+#container {
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#task-input-footer {
+    position: fixed;
+    bottom: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#taskInput {
+    background: rgba(18, 18, 18, 0.9);
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #fff;
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    padding: 8px 12px;
+    text-align: center;
+    width: 220px;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+#taskInput::placeholder {
+    color: #666;
+    font-family: 'Orbitron', monospace;
+}
+
+#taskInput:focus {
+    border-color: #1db954;
+    background: rgba(18, 18, 18, 0.95);
+}
+
+#enterBtn {
+    background: #1db954;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #fff;
+    font-family: 'Orbitron', monospace;
+    font-size: 22px;
+    font-weight: bold;
+    width: 44px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+#enterBtn:hover {
+    background: #1ed760;
+    border-color: #1db954;
+}
+
+#enterBtn:active {
+    background: #169942;
+}
+
+#startBtn {
+    padding: 10px 20px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #1db954;
+    border: none;
+    border-radius: 8px;
+    color: white;
+}
+
+#p5-container {
+    margin-bottom: 20px; /* Espacio entre cubo y timer */
+}
+
+#timer {
+    font-size: 48px;
+    font-family: 'Orbitron', monospace; /* Aplicamos la fuente al timer */
+}
+
+#task-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    color: #ccc;
+    margin-top: 15px;
+    font-weight: 300;
+    display: none;
+}
