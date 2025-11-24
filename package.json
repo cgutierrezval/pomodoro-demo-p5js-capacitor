@@ -9,9 +9,7 @@
   "dependencies": {
     "@capacitor/android": "^7.4.4",
     "@capacitor/core": "^7.4.4",
-    "@capacitor/haptics": "^7.0.2",
-    "p5": "^1.11.11",
-    "p5.sound": "^0.3.0-rc.0"
+    "@capacitor/haptics": "^7.0.2"
   },
   "devDependencies": {
     "@capacitor/cli": "^7.4.4",

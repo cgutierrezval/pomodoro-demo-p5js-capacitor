@@ -188,12 +188,12 @@ pomodoro-vite/
 ├── index.html              # Página principal
 ├── src/
 │   ├── main.js             # Entry point Vite
-│   ├── sketch.js           # Lógica p5.js + Pomodoro
-│   ├── p5-wrapper.js       # Wrapper para p5.js
-│   └── p5.js               # p5.js library
+│   └── sketch.js           # Lógica p5.js + Pomodoro
 ├── css/
 │   └── style.css           # Estilos principales
 ├── public/
+│   ├── p5.js               # Librería p5.js core
+│   ├── p5.sound.min.js     # Librería p5.sound
 │   ├── fonts/              # Fuente Orbitron
 │   └── sounds/             # Archivos de audio (futuro)
 ├── android/                # Proyecto Android (Capacitor)
@@ -206,6 +206,14 @@ pomodoro-vite/
 ---
 
 ## 🔧 Configuración Técnica
+
+### Carga de Librerías (p5.js)
+
+A diferencia de un setup estándar de Vite/React/Vue, este proyecto carga **p5.js** y **p5.sound** como scripts globales directamente desde el directorio `public/`.
+
+- **Ubicación**: `/public/p5.js` y `/public/p5.sound.min.js`
+- **Carga**: Etiquetas `<script>` en `index.html` antes del módulo principal.
+- **Ventaja**: Evita problemas de compatibilidad con módulos ES6 y facilita el acceso global a las funciones de p5.
 
 ### Capacitor Setup
 
@@ -231,8 +239,7 @@ El proyecto usa **Capacitor 7.x** con la siguiente configuración:
   "dependencies": {
     "@capacitor/core": "^7.4.4",
     "@capacitor/android": "^7.4.4",
-    "@capacitor/haptics": "^7.0.2",
-    "p5": "^1.11.11"
+    "@capacitor/haptics": "^7.0.2"
   },
   "devDependencies": {
     "vite": "^7.2.2"
@@ -276,48 +283,20 @@ let timer = 10; // Cambiar duración (segundos)
 
 ## ⚠️ Problemas Conocidos
 
-### 🎵 Audio con p5.sound - NO FUNCIONAL
+### 🎵 Audio con p5.sound
 
-**Estado Actual:** La integración de `p5.sound` con este proyecto **NO está completamente resuelta**.
+**Estado Actual:** La integración de `p5.sound` funciona correctamente cargando la librería como script global.
 
-**Problema:**
-```javascript
-// INTENTADO: Cargar p5.sound desde HTML
-<script src="/src/p5.js"></script>
-<script src="/src/p5.sound.min.js"></script>
-
-// RESULTADO: loadSound() no funciona correctamente
-soundEffect = sketch.loadSound('/sounds/short-sound.mp3'); // ❌ Falla
+**Configuración Exitosa:**
+```html
+<!-- En index.html -->
+<script src="/p5.js"></script>
+<script src="/p5.sound.min.js"></script>
 ```
 
-**Síntomas:**
-- `loadSound()` no reconoce archivos de audio
-- Errores de dependencias con Vite + Capacitor
-- p5.sound requiere configuración específica que no es compatible con este setup
-
-**Alternativas Probadas:**
-1. ✅ **Scripts globales en HTML** - Parcialmente funciona
-2. ❌ **Import ES modules** - Conflictos con Vite
-3. ❌ **UMD + CDN** - Problemas en build de producción
-
-**Solución Temporal:**
-- ✅ **Solo haptic feedback** funciona perfectamente
-- ✅ **Vibración al finalizar** pomodoro
-- ❌ **Audio notifications** requieren implementación alternativa
-
-**Recomendación para Audio:**
-```javascript
-// Alternativa: Web Audio API nativa
-const audioContext = new AudioContext();
-const audio = new Audio('/sounds/notification.mp3');
-audio.play();
-```
-
-**¿Por qué p5.sound es problemático aquí?**
-- Dependencia compleja con bundlers modernos (Vite)
-- Require setup específico de AudioContext
-- Capacitor Android tiene restricciones de audio adicionales
-- p5.sound está optimizado para p5.js puro, no para proyectos híbridos
+**Notas Importantes:**
+- Es necesario interactuar con la página (click/tap) antes de que el navegador permita reproducir audio (política de autoplay).
+- En Android, asegúrate de que el volumen multimedia esté activado.
 
 ---
 
@@ -438,7 +417,7 @@ npx cap ls           # Listar platforms/plugins
 
 ### APIs Utilizadas
 - [📳 Capacitor Haptics](https://capacitorjs.com/docs/apis/haptics)
-- [🎵 p5.js Sound](https://p5js.org/reference/#/libraries/p5.sound) ⚠️ **PROBLEMA NO RESUELTO**
+- [🎵 p5.js Sound](https://p5js.org/reference/#/libraries/p5.sound)
 
 ### Herramientas de Desarrollo
 - [🔧 Android Studio](https://developer.android.com/studio)
@@ -476,7 +455,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ## 🔮 Roadmap Futuro
 
-- [ ] 🎵 ⚠️ **Audio notifications (requiere alternativa a p5.sound)**
+- [x] 🎵 **Audio notifications (Implementado con p5.sound)**
 - [ ] ⏰ Múltiples duraciones de Pomodoro (25min, 15min, 5min)
 - [ ] 📊 Estadísticas de productividad
 - [ ] 🌙 Modo oscuro/claro
